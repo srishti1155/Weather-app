@@ -47,12 +47,21 @@ class _HomePageState extends State<HomePage> {
 
   /// Fetches weather data for the searched cities and updates the state
   void _fetchWeatherData() {
+    final currentContext = context; // Capture the context at the start
     _weatherData.keys.forEach((name) {
       _wf.currentWeatherByCityName(name).then((weather) {
         setState(() {
           _weatherData[name] = weather;
         });
-      }).catchError((error) {});
+      }).catchError((error) {
+         // Show an error message to the user
+       setState(() {
+          _weatherData[name] = null; // Reset the weather data
+        });
+        ScaffoldMessenger.of(currentContext).showSnackBar(
+          SnackBar(content: Text('Failed to fetch weather data for $name')), );
+        
+      });
     });
   }
 
