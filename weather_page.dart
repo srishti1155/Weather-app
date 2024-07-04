@@ -24,12 +24,23 @@ class _WeatherPageState extends State<WeatherPage> {
 
   /// Fetches the weather data for the city passed to the search bar
   void _fetchWeather() {
+    final currentContext = context; // Capture the context at the start
     _wf.currentWeatherByCityName(widget.cityName).then((w) {
       setState(() {
         _weather = w;
       });
+    }).catchError((error) {
+      // print('Error fetching weather data for ${widget.cityName}: $error');
+      // Show an error message to the user
+      setState(() {
+        _weather = null; // Reset the weather data
+      });
+      ScaffoldMessenger.of(currentContext).showSnackBar(
+        SnackBar(
+            content: Text('Failed to fetch weather data for ${widget.cityName}')),
+      );
     });
-  }
+     }
 
   @override
   Widget build(BuildContext context) {
