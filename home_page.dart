@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _fetchWeatherData(); // Fetch initial weather data for searched cities
+    _fetchWeatherData(); // Fetch initial weather data for  cities
     _initSharedPreferences(); // Initialize shared preferences to store and retrieve last search
 
     _searchFocusNode.addListener(() {
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// Fetches weather data for the searched cities and updates the state
+  /// Fetches weather data for the cities and updates the state
   void _fetchWeatherData() {
     final currentContext = context; // Capture the context at the start
     _weatherData.keys.forEach((name) {
